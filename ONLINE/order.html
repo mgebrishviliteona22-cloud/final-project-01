@@ -1,0 +1,376 @@
+﻿<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>შეკვეთა — OnlinePrint.ge</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/order.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html" class="logo">OnlinePrint<span>.ge</span></a>
+        <div class="nav-meta">
+          <a href="contact.html">კონტაქტი</a>
+          <a href="tel:+995598878999">📞 +995 598 878 999</a>
+          <a href="#" class="hide-mobile">👤 შესვლა</a>
+          <a href="#" class="cart-pill">🛒 <span class="cart-count">2</span></a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container stepper-wrap">
+      <div class="stepper" id="stepper"></div>
+    </div>
+
+    <div class="container flow">
+      <!-- STEP 1: UPLOAD -->
+      <section class="panel active" data-panel="1">
+        <div class="panel-head">
+          <h2>1. ატვირთვა</h2>
+          <p>აირჩიეთ ან ჩააგდეთ ფაილი, რომლის დაბეჭდვაც გსურთ</p>
+        </div>
+        <div class="panel-grid">
+          <div class="card">
+            <div class="drop-area" id="drop-area">
+              <div class="drop-icon">☁️</div>
+              <div class="drop-title">ფაილის ატვირთვა</div>
+              <div class="drop-sub">ან ჩააგდეთ ფაილი აქ</div>
+              <div class="drop-sub spaced">
+                JPG, PNG, PDF, TIFF — მაქსიმუმ 200MB
+              </div>
+              <input type="file" id="file-input" accept="image/*,.pdf,.tiff" />
+            </div>
+            <div class="trust-note">
+              🔒 ფაილის მთლიანობის გარანტია — ატვირთული ფაილები დამუშავდება
+              მაღალი ხარისხის შენარჩუნებით.
+            </div>
+          </div>
+
+          <div class="card file-preview-card">
+            <h4>ჩვენი ფაილი</h4>
+            <div id="preview-empty" class="empty-note">
+              ჯერ ფაილი არ არის ატვირთული.
+            </div>
+            <div class="file-preview" id="preview-box">
+              <img id="preview-img" src="" alt="" />
+              <div>
+                <div class="fname" id="preview-name">ოჯახი.jpg</div>
+                <div class="fsize" id="preview-size">2.4 MB</div>
+              </div>
+              <button class="file-remove" id="remove-file" title="წაშლა">
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="actions-row end">
+          <button class="btn-primary" id="to-step-2" disabled>შემდეგი →</button>
+        </div>
+      </section>
+
+      <!-- STEP 2: CONFIGURE -->
+      <section class="panel" data-panel="2">
+        <div class="panel-head">
+          <h2>2. პარამეტრები</h2>
+          <p>აირჩიეთ პროდუქტის ტიპი და პარამეტრები</p>
+        </div>
+        <div class="panel-grid">
+          <div class="card">
+            <div class="field-block">
+              <div class="field-label">პროდუქტის ტიპი</div>
+              <div class="option-grid" id="product-type-grid">
+                <button class="option-btn selected" data-type="photo">
+                  <span class="opt-icon">🖼️</span>ფოტო ბეჭდვა
+                </button>
+                <button class="option-btn" data-type="doc">
+                  <span class="opt-icon">📄</span>დოკუმენტი
+                </button>
+                <button class="option-btn" data-type="tile">
+                  <span class="opt-icon">🧩</span>ტილო
+                </button>
+                <button class="option-btn" data-type="card">
+                  <span class="opt-icon">🎴</span>ბარათი
+                </button>
+              </div>
+            </div>
+
+            <div class="field-block">
+              <div class="field-label">ზომა</div>
+              <div class="option-grid" id="size-grid">
+                <button class="option-btn" data-size="10x15" data-price="0.5">
+                  10x15 სმ
+                </button>
+                <button
+                  class="option-btn selected"
+                  data-size="13x18"
+                  data-price="0.7"
+                >
+                  13x18 სმ
+                </button>
+                <button class="option-btn" data-size="15x21" data-price="1.1">
+                  15x21 სმ
+                </button>
+                <button class="option-btn" data-size="20x30" data-price="2.4">
+                  20x30 სმ
+                </button>
+              </div>
+            </div>
+
+            <div class="field-block">
+              <div class="field-label">ქაღალდი / მასალა</div>
+              <div class="option-grid cols-3" id="paper-grid">
+                <button class="option-btn selected" data-paper="premium">
+                  პრემიუმ ბრჭყვიალა
+                </button>
+                <button class="option-btn" data-paper="matte">მატი</button>
+                <button class="option-btn" data-paper="satin">საატინი</button>
+              </div>
+            </div>
+
+            <div class="field-block">
+              <div class="field-label">რაოდენობა</div>
+              <div class="qty-control">
+                <button class="qty-btn" id="qty-minus">−</button>
+                <span class="qty-value" id="qty-value">2</span>
+                <button class="qty-btn" id="qty-plus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card preview-card">
+            <img id="cfg-preview-img" src="" alt="" />
+            <div class="preview-meta" id="cfg-meta-size">
+              13x18 სმ · <strong>პრემიუმ ბრჭყვიალა</strong>
+            </div>
+            <div class="preview-meta">
+              რაოდენობა: <strong id="cfg-meta-qty">2</strong>
+            </div>
+            <div class="price-line">
+              <span class="label">ჯამური ფასი</span>
+              <span class="value" id="cfg-price">1.40 ₾</span>
+            </div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="btn-secondary" data-back="1">← უკან</button>
+          <button class="btn-primary" data-next="3">შემდეგი →</button>
+        </div>
+      </section>
+
+      <!-- STEP 3: DELIVERY -->
+      <section class="panel" data-panel="3">
+        <div class="panel-head">
+          <h2>3. მიტანა</h2>
+          <p>აირჩიეთ მიღების მეთოდი და შეავსეთ მისამართი</p>
+        </div>
+        <div class="panel-grid">
+          <div class="card">
+            <div class="field-block">
+              <div class="field-label">მიტანის მეთოდი</div>
+              <div
+                class="delivery-option selected"
+                data-method="courier"
+                data-price="6.00"
+              >
+                <div>
+                  <div class="d-title">🚚 კურიერი</div>
+                  <div class="d-sub">1–2 სამუშაო დღე</div>
+                </div>
+                <div class="d-price">6.00 ₾</div>
+              </div>
+              <div class="delivery-option" data-method="pickup" data-price="0">
+                <div>
+                  <div class="d-title">📍 თვითმობილობით აღება</div>
+                  <div class="d-sub">2–3 სამუშაო დღე</div>
+                </div>
+                <div class="d-price">უფასო</div>
+              </div>
+            </div>
+
+            <div class="field-block no-margin">
+              <div class="field-label">მისამართის დეტალები</div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>სახელი გვარი</label>
+                  <input
+                    type="text"
+                    id="f-name"
+                    placeholder="თქვენი სახელი გვარი"
+                  />
+                </div>
+                <div class="form-field">
+                  <label>ტელეფონი</label>
+                  <input
+                    type="text"
+                    id="f-phone"
+                    placeholder="+995 598 123 456"
+                  />
+                </div>
+                <div class="form-field">
+                  <label>ქალაქი</label>
+                  <select id="f-city">
+                    <option>თბილისი</option>
+                    <option>ბათუმი</option>
+                    <option>ქუთაისი</option>
+                    <option>რუსთავი</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label>ინდექსი (არასავალდებულო)</label>
+                  <input type="text" id="f-zip" placeholder="0100" />
+                </div>
+              </div>
+              <div class="form-grid single">
+                <div class="form-field">
+                  <label>მისამართი</label>
+                  <textarea
+                    id="f-address"
+                    placeholder="ქუჩა, სახლი, ბინა"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card preview-card">
+            <h4 class="card-heading">შეკვეთის შეჯამება</h4>
+            <img id="dlv-preview-img" src="" alt="" />
+            <div class="preview-meta" id="dlv-meta-1">2 x ფოტო დაბეჭდვა</div>
+            <div class="preview-meta" id="dlv-meta-2">
+              13x18 სმ · პრემიუმ ბრჭყვიალა
+            </div>
+            <div class="summary-line summary-offset">
+              <span>პროდუქტის ფასი</span
+              ><span id="dlv-sum-product">1.40 ₾</span>
+            </div>
+            <div class="summary-line">
+              <span>მიტანა</span><span id="dlv-sum-delivery">6.00 ₾</span>
+            </div>
+            <div class="price-line">
+              <span class="label">ჯამი</span>
+              <span class="value" id="dlv-total">7.40 ₾</span>
+            </div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="btn-secondary" data-back="2">← უკან</button>
+          <button class="btn-primary" data-next="4">შემდეგი →</button>
+        </div>
+      </section>
+
+      <!-- STEP 4: REVIEW -->
+      <section class="panel" data-panel="4">
+        <div class="panel-head">
+          <h2>4. შეკვეთის შემოწმება</h2>
+          <p>გადახედეთ შეკვეთას და დაადასტურეთ დეტალები</p>
+        </div>
+        <div class="panel-grid">
+          <div class="card">
+            <div class="review-row">
+              <img id="rev-thumb" class="review-thumb" src="" alt="" />
+              <div class="review-body">
+                <h4>პროდუქტი</h4>
+                <p id="rev-product">
+                  2 x ფოტო დაბეჭდვა<br />13x18 სმ · პრემიუმ ბრჭყვიალა<br />რაოდენობა:
+                  2
+                </p>
+              </div>
+              <button class="review-edit" data-back="2">შეცვლა</button>
+            </div>
+            <div class="review-row">
+              <div class="review-thumb">🚚</div>
+              <div class="review-body">
+                <h4>მიტანა</h4>
+                <p id="rev-delivery">კურიერი · 1–2 სამუშაო დღე</p>
+              </div>
+              <button class="review-edit" data-back="3">შეცვლა</button>
+            </div>
+            <div class="review-row">
+              <div class="review-thumb">💳</div>
+              <div class="review-body">
+                <h4>გადახდა</h4>
+                <p>ნაღდი ან ბარათი მიღებისას</p>
+              </div>
+              <button class="review-edit" data-back="3">შეცვლა</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4 class="card-heading spaced">შეკვეთის შეჯამება</h4>
+            <div class="summary-line">
+              <span>პროდუქტი</span><span id="rev-sum-product">1.40 ₾</span>
+            </div>
+            <div class="summary-line">
+              <span>მიტანა</span><span id="rev-sum-delivery">6.00 ₾</span>
+            </div>
+            <div class="summary-line total">
+              <span>ჯამი</span><span id="rev-total">7.40 ₾</span>
+            </div>
+            <div class="payment-note">
+              🛡️ თქვენი მონაცემები დაცული და კონფიდენციალურია.
+            </div>
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="btn-secondary" data-back="3">← უკან</button>
+          <button class="btn-primary btn-confirm" id="confirm-order">
+            შეკვეთის დადასტურება
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 5: CONFIRMATION -->
+      <section class="panel" data-panel="5">
+        <div class="confirm-panel">
+          <div>
+            <div class="confirm-check">✓</div>
+            <h1>შეკვეთა მიღებულია!</h1>
+            <p class="lead">
+              მადლობა შეკვეთისთვის. ჩვენ უკვე ვამზადებთ თქვენს ბეჭდვას.
+            </p>
+            <div class="confirm-info">
+              <div>
+                <div class="lbl">შეკვეთის ნომერი</div>
+                <div class="val" id="conf-order-id">#OP-000000-0000</div>
+              </div>
+              <div>
+                <div class="lbl">მიწოდება</div>
+                <div class="val">1–2 სამუშაო დღე</div>
+              </div>
+            </div>
+            <div class="confirm-note">
+              ✉️
+              <span>
+                შეკვეთის დეტალები გამოგზავნილია იმეილზე
+                <strong>onlineprint26@gmail.com</strong>. ჩვენ შეგატყობინებთ
+                სტატუსის ცვლილებაზე SMS-ით.
+              </span>
+            </div>
+            <div class="confirm-actions">
+              <button class="btn-primary" id="back-home">
+                გაგრძელება მთავარ გვერდზე
+              </button>
+              <button class="btn-secondary" id="view-orders">
+                ჩემი შეკვეთები
+              </button>
+            </div>
+          </div>
+          <div class="confirm-visual">
+            <img
+              src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=700&q=80"
+              alt="შეფუთული შეკვეთა"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="js/order.js"></script>
+  </body>
+</html>
