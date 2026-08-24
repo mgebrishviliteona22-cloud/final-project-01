@@ -1,1085 +1,423 @@
-# Technical Specification Document
-## Online Print-on-Demand Service for Documents
-
-**Project Status:** Ideation / Content Planning  
-**Technology:** Native HTML5, CSS3, JavaScript  
-**Architecture:** Static, client-side only  
-**Backend:** None  
-**Document Type:** Work-in-Progress Technical Specification
+# OnlinePrint.ge — Website System Design
+## Premium Print-on-Demand Platform — Visual & Spatial Architecture
 
 ---
 
-# 1. Project Overview
+## 1. Design Philosophy
 
-## 1.1 Project Purpose
+The OnlinePrint.ge website should feel less like a conventional printing-service website and more like a premium digital studio for turning digital files into physical objects.
 
-The project is a **static online document printing service website** that allows users to explore printing options, estimate the cost of an order, configure basic printing requirements, and simulate submitting a print request.
+The visual experience should communicate three ideas simultaneously:
+* **Simplicity** — printing should feel effortless.
+* **Trust** — the user should immediately understand what they are ordering and how it works.
+* **Emotion** — photography and printed memories should feel tangible and valuable.
 
-The website is intended to demonstrate the complete user journey of an online print-on-demand service:
+The interface should therefore avoid the typical visual language of printing companies: dense tables, excessive technical information, generic stock photography, and rigid symmetrical layouts.
 
-**Choose printing options → Upload/select a document → Configure order → Calculate estimated price → Submit simulated order**
+Instead, the design uses:
+* editorial whitespace,
+* asymmetrical compositions,
+* layered cards,
+* tactile paper-like surfaces,
+* photographic elements,
+* restrained motion,
+* large typography,
+* subtle borders and shadows,
+* coral accent moments,
+* and strong visual hierarchy.
 
-Because there is currently **no backend server or database**, the website will not actually upload files, process payments, create orders, or store customer information. All interactive functionality will be simulated using client-side JavaScript.
-
----
-
-## 1.2 Target Audience
-
-The primary target users include:
-
-- **Students** — printing assignments, essays, dissertations, lecture notes, and study materials.
-- **Professionals** — printing reports, presentations, contracts, proposals, and business documents.
-- **Small businesses** — printing invoices, brochures, internal documents, manuals, and marketing materials.
-- **Individuals** — printing personal documents, forms, photographs, or other materials.
-
-The interface should therefore prioritize **simplicity, speed, and clarity** rather than assuming advanced technical knowledge.
-
----
-
-## 1.3 Key Goals
-
-The website should:
-
-1. Clearly explain what the printing service provides.
-2. Explain the printing process in a simple step-by-step format.
-3. Allow users to configure basic printing requirements.
-4. Provide a **client-side print price calculator**.
-5. Allow users to simulate selecting/uploading a document.
-6. Collect basic order information through a form.
-7. Dynamically display an estimated order total.
-8. Provide clear calls-to-action such as **"Start Printing"** and **"Get a Quote"**.
-9. Work correctly across desktop, tablet, and mobile screen sizes.
-10. Establish a clean HTML/CSS/JavaScript foundation that could later be connected to a real backend.
+The page should feel modern, warm, minimal, premium, and distinctly physical.
 
 ---
 
-# 2. Information Architecture (Sitemap)
+## 2. Global Design System
 
-The proposed site structure is:
+### Color Architecture
+The page is built around a warm neutral foundation rather than a cold technological interface.
 
-```text
-Website
-│
-├── Home
-│
-├── How It Works
-│
-├── Pricing / Calculator
-│
-├── Upload / Order
-│
-└── Contact
-```
-
-### Home
-
-**Primary purpose:** Introduce the printing service, communicate its main benefits, and direct users toward starting a print order.
-
-### How It Works
-
-**Primary purpose:** Explain the printing and delivery process from document submission to completed order.
-
-### Pricing / Calculator
-
-**Primary purpose:** Allow users to configure printing options and receive a simulated estimated price.
-
-### Upload / Order
-
-**Primary purpose:** Provide the main simulated order form where users select a document and enter their printing and delivery requirements.
-
-### Contact
-
-**Primary purpose:** Provide basic contact information and a simple client-side contact form for questions or inquiries.
+* **Primary Background (`#FDFBF7`)**  
+  Used as the dominant page background. It gives the interface a warm paper-like quality and visually connects the digital interface with the physical nature of printed products.
+* **Surface (`#FFFFFF`)**  
+  Used for elevated cards, upload panels, pricing cards, and other interactive surfaces.
+* **Subtle Surface (`#FAF8F5`)**  
+  Used inside secondary containers, upload areas, segmented controls, and supporting visual regions.
+* **Primary Text (`#1A1A1A`)**  
+  Used for headlines, navigation, prices, important labels, and primary interface elements.
+* **Secondary Text (`#706E6B`)**  
+  Used for descriptions, supporting information, metadata, and less prominent navigation elements.
+* **Accent (`#E05A47`)**  
+  The coral accent is the primary action color. It should be used selectively for:
+  * brand emphasis,
+  * active states,
+  * primary CTAs,
+  * hover states,
+  * important highlights,
+  * featured pricing,
+  * and small decorative details.  
+  *Note: The accent should never dominate the entire interface.*
+* **Borders (`#E8E5DF`)**  
+  Very subtle borders define surfaces without creating a heavy card-based appearance.
 
 ---
 
-# 3. Content Planning (Page-by-Page)
+## 3. Typography System
 
-The following descriptions represent a **wireframe-in-text** and should be used as a content and layout blueprint before implementing the visual design.
+The current implementation uses **Noto Sans Georgian**, ensuring that the Georgian-language interface remains visually consistent and readable. Typography should have a strong editorial hierarchy.
 
----
+### Hero Heading
+Large, confident typography:
+* Approximately 48px desktop
+* Weight 700
+* Line-height around 1.15
+* Slightly tightened letter spacing
 
-## 3.1 Homepage
+The headline should occupy a relatively narrow text block rather than stretching across the entire screen.  
+*Example:*
+> **დაბეჭდე რეალური მოგონებები.**
 
-### Page Structure
+The heading should feel like a statement rather than a marketing slogan.
 
-```text
-[Header]
-    ├── Logo
-    ├── Navigation
-    │   ├── Home
-    │   ├── How It Works
-    │   ├── Pricing
-    │   ├── Upload / Order
-    │   └── Contact
-    └── CTA: "Start Printing"
+### Section Headings
+* Approximately 36px, weight 700.
+* Introduced major content areas such as:
+  * `რას გთავაზობთ?`
+  * `დაბეჭდე მარტივად, მიიღე ხარისხიანად.`
 
-[Hero Section]
-    ├── Main headline
-    ├── Supporting description
-    ├── CTA: "Start Printing"
-    └── Secondary CTA: "Calculate Price"
+### Body Text
+* 16–18px depending on context.
+* Body copy should remain relatively light and spacious, using the muted text color for secondary information.
 
-[Service Benefits]
-    ├── Fast Printing
-    ├── Multiple Paper Options
-    ├── Professional Binding
-    └── Delivery Available
-
-[How It Works Preview]
-    ├── Step 1: Upload
-    ├── Step 2: Configure
-    ├── Step 3: Calculate
-    └── Step 4: Receive
-
-[Printing Options]
-    ├── Paper Types
-    ├── Color Printing
-    └── Binding Options
-
-[Price Preview]
-    ├── Short explanation
-    ├── Example pricing
-    └── CTA: "Calculate My Price"
-
-[Final CTA]
-    ├── Headline
-    └── "Start Printing" button
-
-[Footer]
-    ├── Navigation
-    ├── Contact information
-    └── Copyright
-```
-
-### Hero Section
-
-The hero should immediately communicate the core value proposition.
-
-**Example:**
-
-> **Print Your Documents. We Handle the Rest.**
-
-Supporting text should explain that users can configure their documents, choose printing and binding options, and receive an estimated price.
-
-Primary CTA:
-
-**Start Printing**
-
-Secondary CTA:
-
-**Calculate Price**
-
-A visual element can show printed documents, bound reports, paper sheets, or a simplified illustration of the printing process.
+### Navigation
+* 14–15px with medium weight.
+* Navigation should remain visually quiet so that the primary content and CTA remain dominant.
 
 ---
 
-## 3.2 How It Works
+## 4. Global Layout Grid
 
-### Page Structure
+* The desktop experience should use a centered content container approximately **1100px wide**, with **24px horizontal page padding**.
+* The grid should not feel mechanically symmetrical even though it is technically grid-based.
+* Large sections should alternate between:
+  * balanced compositions,
+  * asymmetric compositions,
+  * full-width surfaces,
+  * floating cards,
+  * and editorial image arrangements.
 
-```text
-[Page Header]
-    ├── Title: "How It Works"
-    └── Short introduction
+The user should experience a rhythm of:  
+`content` → `whitespace` → `interaction` → `visual object` → `information` → `action`.
 
-[Step 1]
-    ├── Icon / Illustration
-    ├── "Upload Your Document"
-    └── Description
-
-[Step 2]
-    ├── Icon / Illustration
-    ├── "Choose Printing Options"
-    └── Description
-
-[Step 3]
-    ├── Icon / Illustration
-    ├── "Review Your Price"
-    └── Description
-
-[Step 4]
-    ├── Icon / Illustration
-    ├── "Submit Your Order"
-    └── Description
-
-[Printing Options Explanation]
-    ├── Paper
-    ├── Color
-    ├── Binding
-    └── Quantity
-
-[FAQ]
-    ├── What file types are supported?
-    ├── Can documents be bound?
-    ├── How is the price calculated?
-    └── Is online payment available?
-
-[CTA]
-    └── "Start Printing"
-```
-
-Each step should be visually separated and numbered.
-
-The page should make the process understandable without requiring the user to visit another page.
+*Avoid filling every available area. Negative space is an intentional component of the design system.*
 
 ---
 
-# 3.3 Pricing / Calculator
+## 5. Header / Navigation
 
-This is one of the core functional pages of the website.
+The header is a compact, floating-feeling navigation layer. It remains visually lightweight and should never compete with the hero.
 
-### Page Structure
+### Spatial Structure
+The navigation consists of three horizontal zones:
 
-```text
-[Page Header]
-    ├── "Print Price Calculator"
-    └── Short explanation
+* **Left:** `OnlinePrint.ge` logo.
+* **Center:** 
+  * Services
+  * Pricing
+  * About
+  * Contact
+* **Right:** Primary CTA — `შეკვეთა`
 
-[Calculator Form]
+The logo uses dark text with `.ge` highlighted in the coral accent. The navigation background is warm off-white with approximately 95% opacity and a subtle blur effect, creating a soft translucent appearance while scrolling. A thin bottom border separates the navigation from the content without creating a heavy header.
 
-    [Document Information]
-        ├── Number of Pages
-        └── Number of Copies
-
-    [Paper Options]
-        ├── A4
-        ├── A5
-        └── Glossy / Premium
-
-    [Color Options]
-        ├── Black & White
-        └── Full Color
-
-    [Binding Options]
-        ├── No Binding
-        ├── Spiral Binding
-        └── Perfect Binding
-
-    [Additional Options]
-        └── Optional extras
-
-[Price Summary]
-    ├── Printing Cost
-    ├── Paper Cost
-    ├── Binding Cost
-    └── Estimated Total
-
-[CTA]
-    └── "Continue to Order"
-```
-
-### Calculator Controls
-
-The controls should use appropriate HTML form elements:
-
-- **Page count:** `<input type="number">`
-- **Copies:** `<input type="number">`
-- **Paper size/type:** `<select>` or radio buttons
-- **Color:** radio buttons
-- **Binding:** radio buttons or a `<select>`
-- **Optional services:** checkboxes
-
-Example options:
-
-| Category | Options |
-|---|---|
-| Paper | A4 Standard, A5 Standard, Premium/Glossy |
-| Color | Black & White, Full Color |
-| Binding | None, Spiral, Perfect |
-| Copies | 1, 2, 3... |
-| Pages | User-defined number |
-
-The current prices should be stored in JavaScript as configuration values rather than hard-coded repeatedly throughout the HTML.
-
-Example pricing model:
-
-```text
-Black & White: $0.10 / page
-Color: $0.30 / page
-
-A4 Standard: $0.02 / page
-Premium Paper: $0.08 / page
-
-No Binding: $0.00
-Spiral Binding: $2.50
-Perfect Binding: $5.00
-```
-
-These values are **illustrative only** and can be replaced during the design/content phase.
+### Interaction
+* Navigation links use muted gray by default.
+* On hover, text transitions toward `#1A1A1A`.
+* The CTA is dark by default and changes to coral on hover.
+* The CTA should feel like a pill-shaped action rather than a traditional rectangular button.
 
 ---
 
-# 3.4 Upload / Order
+## 6. Hero — "Digital File → Physical Memory"
 
-This page represents the primary simulated customer workflow.
+The hero is the primary visual statement of the website. It should not immediately look like a generic upload form. Instead, it should establish an emotional relationship between digital content and physical printing.
 
-### Page Structure
+### Spatial Composition
+* Desktop uses a two-column composition.
+* The left side contains the editorial introduction.
+* The right side contains the main printing/upload interaction.
+* The two areas should have different visual weights: the left side should feel open and editorial, while the right side should feel like a physical workstation.
 
-```text
-[Page Header]
-    ├── "Start Your Print Order"
-    └── Short instructions
+### Left Hero Area
+Large headline:
+> **დაბეჭდე რეალური მოგონებები.**
 
-[Document Upload Area]
-    ├── Drag & Drop visual area
-    ├── "Choose File" button
-    └── Supported file types message
+Below it, supporting text explains that users can print photographs, Polaroid-style images, and official documents with delivery throughout Georgia. The copy should remain short.
 
-[Selected File Preview]
-    ├── File name
-    ├── File size
-    └── Remove button
+The visual hierarchy is:  
+`Headline` → `explanation` → `physical photo composition`  
+*(rather than Headline → paragraph → button).*
 
-[Print Configuration]
-    ├── Pages
-    ├── Copies
-    ├── Paper
-    ├── Color
-    └── Binding
+### Photo Composition
+Under or partially beside the introductory text, photographs should appear as physical printed objects. Instead of a standard image gallery, use two or more overlapping photo cards.
 
-[Customer Information]
-    ├── Name
-    ├── Email
-    └── Phone
+Each card should resemble an actual printed photograph:
+* white paper border,
+* subtle shadow,
+* slightly imperfect rotation,
+* rounded corners,
+* photographic content.
 
-[Delivery Information]
-    ├── Delivery address
-    └── Delivery method
+One photograph can rotate approximately **-2deg**. Another can rotate approximately **+3deg** and sit slightly lower. This creates the impression that printed photographs have been placed casually on a desk.
 
-[Order Summary]
-    ├── Document
-    ├── Print configuration
-    ├── Quantity
-    └── Estimated price
-
-[Submit]
-    └── "Get Quote / Submit Order"
-
-[Confirmation Area]
-    └── Simulated order confirmation
-```
-
-### Simulated Upload
-
-Since there is no backend, the upload feature should **not actually send the document anywhere**.
-
-The browser can still use:
-
-```html
-<input type="file">
-```
-
-JavaScript can read the selected file's metadata, such as:
-
-- File name
-- File extension
-- File size
-
-The interface can then display:
-
-> `report.pdf selected successfully.`
-
-The file itself should not be uploaded to a server.
+*On hover, the photograph straightens and scales slightly. This interaction reinforces the physical/tactile concept.*
 
 ---
 
-# 3.5 Contact
+## 7. Upload / Ordering Surface
 
-### Page Structure
+The upload interface is the primary conversion component of the hero. It should look like a premium physical print-order station, not a generic software upload box.
 
-```text
-[Page Header]
-    ├── "Contact Us"
-    └── Short introduction
+### Card Structure
+The upload card is:
+* white,
+* rounded (approx. 16px radius),
+* subtly bordered,
+* elevated with a soft shadow,
+* generously padded.
 
-[Contact Information]
-    ├── Email
-    ├── Phone
-    ├── Business hours
-    └── Service area
+The card should visually float above the warm background.
 
-[Contact Form]
-    ├── Name
-    ├── Email
-    ├── Subject
-    ├── Message
-    └── "Send Message"
+### Mode Selector
+At the top of the card is a compact segmented control with two modes:
+1. `🖼️ ფოტოები`
+2. `📄 დოკუმენტები`
 
-[FAQ Preview]
-    └── Link to How It Works / FAQ
+The selector uses a soft beige background. The active mode sits inside a white pill with a subtle shadow. This makes the interaction resemble a physical control switch.
 
-[Footer]
-```
+### Drop Area
+The main upload zone is a lightly contrasting surface using:
+* `#FAF8F5`
+* dashed border
+* rounded corners
+* generous vertical padding.
 
-Because there is no backend, submitting the form should produce a simulated confirmation rather than actually sending an email.
+The interface should communicate: `Drop` → `Select` → `Configure` (rather than presenting a technically complex file-management interface).
 
-Example:
+The icon is large and centered. The primary instruction appears below it, and supporting file-format information is smaller and muted.
 
-> **Thank you! Your message has been recorded as a demo submission.**
+### Dynamic State
+When the user switches from Photos to Documents, the icon, title, and supported formats change without a page reload:
 
----
-
-# 4. Front-End Functional Requirements (Client-Side JS)
-
-JavaScript should provide the interactive behavior of the static website.
-
-No JavaScript functionality should depend on a server, database, API, authentication system, or backend endpoint.
-
----
-
-## 4.1 Print Calculator
-
-The calculator is the primary JavaScript feature.
-
-### Required Inputs
-
-The calculator should capture:
-
-1. Page count
-2. Number of copies
-3. Paper type
-4. Color option
-5. Binding type
-
-Optional future inputs may include:
-
-- Double-sided printing
-- Delivery method
-- Rush printing
-- Cover type
-- Additional finishing options
+* **Photo mode:**
+  * Main text: `ჩააგდეთ ფოტოები აქ`
+  * Supporting text: `ან დააჭირეთ ასარჩევად (JPG, PNG)`
+* **Document mode:**
+  * Main text: `ჩააგდეთ დოკუმენტი (PDF, DOCX) აქ`
+  * Supporting text: `ან დააჭირეთ ასარჩევად (MAX 50MB)`
 
 ---
 
-## 4.2 Input Types
+## 8. Primary CTA
 
-Recommended controls:
+The upload action is represented by a full-width button.
 
-```text
-Page Count
-→ number input
+* **Default state:**
+  * dark background `#1A1A1A`
+  * white text
+  * rounded 12px corners
+  * strong 600 weight
+  * Text example: `ატვირთვა და ზომების არჩევა →`
+* **On hover:**
+  * background changes to coral `#E05A47`.
 
-Copies
-→ number input
-
-Paper
-→ select / radio buttons
-
-Color
-→ radio buttons
-
-Binding
-→ radio buttons / select
-
-Optional Services
-→ checkboxes
-```
-
-All required fields must have appropriate labels.
+The transition should be smooth and subtle. The button should visually communicate that uploading is only the first step of the ordering process.
 
 ---
 
-## 4.3 Price Calculation
+## 9. Services Section
 
-The calculator should update whenever a relevant input changes.
+The services section introduces the product categories after the emotional hero. The section should feel more structured than the hero but retain generous whitespace.
 
-Example calculation:
+### Introduction
+* Centered heading: `რას გთავაზობთ?`
+* Supporting text: `ყველაფერი, რაც ბეჭდვასთან არის დაკავშირებული — ერთ ესთეტიკურ სივრცეში.`
 
-```text
-Printing Cost =
-Page Count × Copies × Price Per Page
+The title should be visually dominant while the description remains muted.
 
-Paper Cost =
-Page Count × Copies × Paper Price
+### Three-Card Composition
+Three service cards form the main grid:
+1. **ფოტოების ბეჭდვა**
+2. **დოკუმენტების ბეჭდვა**
+3. **წიგნის სანიშნები**
 
-Binding Cost =
-Selected Binding Price × Copies
+Each card should feel like a premium product category rather than a generic service box.
 
-Total =
-Printing Cost + Paper Cost + Binding Cost
-```
+### Card Anatomy
+Each card contains:
+* **Visual icon:** Large enough to establish immediate recognition.
+* **Title:** Approximately 20px, medium/semibold.
+* **Description:** Approximately 14px with muted typography.
 
-Example:
+The cards use white surfaces, subtle borders, 16px radius, and generous internal padding.
 
-```text
-100 pages
-× 2 copies
-× $0.10 B&W
-
-= $20.00 printing cost
-```
-
-If spiral binding costs `$2.50` per copy:
-
-```text
-$20.00 + ($2.50 × 2)
-= $25.00 estimated total
-```
-
-The result should be rendered dynamically in the UI.
-
-Example:
-
-```text
---------------------------------
-Estimated Total
-
-$25.00
-
-100 pages · 2 copies
-Black & White · A4
-Spiral Binding
---------------------------------
-```
-
-The calculation should be performed entirely in JavaScript.
+### Interaction
+On hover, the card moves upward approximately **4px**, and the shadow becomes slightly stronger. The animation should remain restrained.
 
 ---
 
-## 4.4 Price Configuration
+## 10. Pricing Section
 
-Prices should be centralized in a JavaScript configuration object.
+The pricing section should transition from product discovery into decision-making.
 
-Conceptually:
+Use the subtle surface background `#FAF8F5` to create a visual separation from the previous section without introducing a new color.
 
-```text
-prices
-├── printing
-│   ├── blackAndWhite
-│   └── color
-├── paper
-│   ├── standard
-│   └── premium
-└── binding
-    ├── none
-    ├── spiral
-    └── perfect
-```
+### Pricing Introduction
+* Centered headline: `დაბეჭდე მარტივად, მიიღე ხარისხიანად.`
+* Supporting text: `ჩვენ ვზრუნავთ თქვენს დროსა და კომფორტზე`
 
-This allows the prices to be changed without modifying calculation logic.
+The tone should remain reassuring rather than aggressively sales-driven.
 
 ---
 
-## 4.5 Form Validation
+## 11. Pricing Cards
 
-Before processing the simulated order:
+Three pricing cards are displayed in a horizontal desktop grid.
 
-1. Prevent the browser's default form submission.
-2. Validate required fields.
-3. Ensure page count is greater than `0`.
-4. Ensure copies are at least `1`.
-5. Ensure required customer information is provided.
-6. Ensure a printing option has been selected.
-7. Display validation errors next to the relevant fields.
+### Card 1 — Standard Photo
+* **Type:** 10×15 cm glossy paper
+* **Price:** `0.50 ₾ / ცალი`
+* **Features:** Premium Glossy paper, accurate colors, ready within 24 hours.
 
-The form handler should follow the general pattern:
+### Card 2 — Polaroid Style (Featured)
+* **Type:** Polaroid Style
+* **Price:** `0.70 ₾ / ცალი`
+* **Features:** Silk paper, text option, gift packaging.
+* *Note: This card should visually stand out using the coral accent.*
 
-```javascript
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    // Validate form
-    // Calculate total
-    // Display simulated confirmation
-});
-```
-
-No request should be sent to a server.
+### Card 3 — A4 Documents
+* **Type:** Document printing
+* **Price:** `0.15 ₾ / გვერდიდან`
+* **Features:** Standard 80g paper, fast printing.
 
 ---
 
-## 4.6 Simulated Order Confirmation
+## 12. Featured Pricing Treatment
 
-After successful validation, JavaScript should display a confirmation section or modal.
-
-Example:
-
-```text
-Order Summary
-
-Document: thesis.pdf
-Pages: 120
-Copies: 1
-Paper: A4 Standard
-Color: Black & White
-Binding: Spiral
-
-Estimated Total: $14.90
-
-This is a simulated order.
-No document has been uploaded and no payment has been processed.
-```
-
-The confirmation should clearly communicate that the website is currently a prototype.
+* The Polaroid card should be the visual focal point.
+* Its border uses the **coral accent**.
+* A small coral badge overlaps the upper edge: `პოპულარული`.
+* The badge should visually break the card boundary, creating a subtle floating-layer effect and giving the pricing hierarchy a clear focal point.
 
 ---
 
-## 4.7 Simulated File Upload
+## 13. Contact / Footer Architecture
 
-The file input should support a simulated upload workflow.
+The footer is the final information layer rather than simply a copyright area. It should feel like the closing page of an editorial experience.
 
-JavaScript should:
+### Four-Column Structure (Desktop)
 
-1. Detect when a file is selected.
-2. Read its name and size.
-3. Display the selected file in the interface.
-4. Allow the user to remove the selected file.
-5. Optionally validate the file extension.
-
-Potential supported formats:
-
-```text
-PDF
-DOC
-DOCX
-TXT
-JPG
-PNG
-```
-
-The actual file contents should not be transmitted anywhere.
+* **Column 1 — Brand (Wider than others):**
+  * `OnlinePrint.ge` logo.
+  * Statement: `თქვენი საიმედო პარტნიორი ციფრული ფოტოებისა და დოკუმენტების ბეჭდვაში.`
+* **Column 2 — Services:**
+  * ფოტოების ბეჭდვა
+  * დოკუმენტების ბეჭდვა
+  * წიგნის სანიშნები
+* **Column 3 — Information:**
+  * მიტანის პირობები
+  * ხშირად დასმული კითხვები
+  * კონფიდენციალურობა
+* **Column 4 — Contact:**
+  * `+995 598 878 999`
+  * `onlineprint26@gmail.com`
+  * `თბილისი, საქართველო`
 
 ---
 
-## 4.8 Mobile Navigation
+## 14. Contact Information Visual Hierarchy
 
-Implement a simple responsive hamburger menu.
+Contact information should not be presented as a large generic "Contact Us" block. Instead, it should feel like a quiet, trustworthy closing point. The phone number, email, and location use muted typography with recognizable icons.
 
-Expected behavior:
-
-```text
-Desktop:
-Logo | Home | How It Works | Pricing | Order | Contact
-
-Mobile:
-Logo | ☰
-```
-
-Clicking the hamburger button should:
-
-- Toggle the navigation menu.
-- Add/remove an active CSS class.
-- Update `aria-expanded`.
-- Allow the menu to close when a navigation link is selected.
-
-No external menu library should be required.
+The visual priority is:  
+`Brand` → `Services` → `Information` → `Direct contact`
 
 ---
 
-## 4.9 Binding Option Tabs
+## 15. Footer Closing Line
 
-Binding options can optionally use a tabbed interface.
+A thin divider separates the footer navigation from the copyright area.
 
-Example:
-
-```text
-[No Binding] [Spiral] [Perfect]
-
---------------------------------
-Spiral Binding
-
-Plastic coil binding suitable
-for reports, assignments and
-presentations.
---------------------------------
-```
-
-JavaScript should:
-
-- Detect the selected tab.
-- Display the corresponding content.
-- Add an active state to the selected tab.
-- Update accessibility attributes where appropriate.
+* Centered copyright text:
+  > `© 2026 OnlinePrint.ge. ყველა უფლება დაცულია.`
+* Uses smaller muted typography for a calm and spacious visual impression.
 
 ---
 
-## 4.10 Dynamic Order Summary
+## 16. Responsive Architecture
 
-The order summary should update when the user changes:
+At widths below approximately **850px**, the layout transitions from an editorial desktop composition into a vertical mobile experience.
 
-- Page count
-- Copies
-- Paper type
-- Color
-- Binding
-
-The user should not need to refresh the page.
+* **Header:** Desktop navigation links disappear. The mobile header retains only the logo and primary action.
+* **Hero:** The two-column hero becomes a single vertical sequence: `headline` → `supporting text` → `photo composition` → `upload card`.
+* **Services:** Three columns stack into one column while maintaining spacing and rounded surfaces.
+* **Pricing:** Three pricing cards stack vertically, with the featured Polaroid card remaining visually highlighted.
+* **Footer:** The four-column footer becomes a single vertical layout with clear spacing between groups.
 
 ---
 
-## 4.11 General JavaScript Principles
+## 17. Interaction Language
 
-JavaScript should:
+Interactions should communicate physicality and quality. Avoid exaggerated animations.
+Use small movements:
+* cards translate upward 3–4px,
+* buttons change color,
+* photographs straighten,
+* navigation links transition color,
+* surfaces subtly increase shadow depth.
 
-- Use modern ES6+ syntax where appropriate.
-- Use `const` and `let` instead of `var`.
-- Separate calculation logic from DOM manipulation where practical.
-- Avoid unnecessary global variables.
-- Use descriptive function names.
-- Keep reusable functions small.
-- Validate user input before performing calculations.
-- Avoid inline JavaScript in HTML.
-- Load scripts using `defer` where appropriate.
-
-Suggested structure:
-
-```text
-js/
-├── main.js
-├── calculator.js
-├── navigation.js
-└── form.js
-```
-
-For a small prototype, these can also be combined into one `script.js` file.
+Animations should generally use approximately **200–300ms transitions**.
 
 ---
 
-# 5. Basic Technical Guidelines (HTML/CSS)
+## 18. Visual Rhythm
 
-## 5.1 HTML5
+The page follows a deliberate user journey:
+1. **Stage 1 — Emotion:** Large headline + photographs.
+2. **Stage 2 — Action:** Upload and order interaction.
+3. **Stage 3 — Discovery:** Available printing services.
+4. **Stage 4 — Decision:** Pricing.
+5. **Stage 5 — Trust:** Contact information and brand statement.
 
-The website must use **semantic HTML5**.
-
-Recommended document structure:
-
-```html
-<header>
-    <nav>
-        ...
-    </nav>
-</header>
-
-<main>
-    <section>
-        ...
-    </section>
-
-    <section>
-        ...
-    </section>
-</main>
-
-<footer>
-    ...
-</footer>
-```
-
-Use semantic elements wherever appropriate:
-
-- `<header>`
-- `<nav>`
-- `<main>`
-- `<section>`
-- `<article>`
-- `<aside>`
-- `<footer>`
-- `<form>`
-- `<label>`
-- `<button>`
-
-Avoid using `<div>` for every structural element when a semantic element is more appropriate.
+Rhythm: `See` → `Understand` → `Upload` → `Explore` → `Choose` → `Trust`
 
 ---
 
-## 5.2 Accessibility
+## 19. Image Direction
 
-The interface should follow basic accessibility practices.
+Photography is a core part of the visual identity. Images should feel authentic, warm, human, tactile, and contemporary (avoid generic corporate stock imagery).
 
-Requirements include:
-
-- Every form input must have a `<label>`.
-- Buttons should use `<button>` rather than clickable `<div>` elements.
-- Images should have meaningful `alt` attributes.
-- Navigation should be keyboard accessible.
-- Focus states should remain visible.
-- Color should not be the only method of communicating information.
-- Form errors should be clearly identifiable.
-- Interactive elements should have meaningful accessible names.
-- Use ARIA attributes only when native HTML semantics are insufficient.
+Preferred visual language:
+* printed photographs,
+* hands holding prints,
+* photographs on desks,
+* family moments,
+* travel memories,
+* documents,
+* paper textures,
+* close-up printing details.
 
 ---
 
-# 5.3 CSS3
-
-CSS should be written using native CSS3 without Sass, LESS, or another preprocessor.
-
-Recommended organization:
-
-```text
-css/
-├── reset.css
-├── variables.css
-├── layout.css
-├── components.css
-└── responsive.css
-```
-
-For a small project, these can instead be consolidated into:
-
-```text
-style.css
-```
-
----
-
-## 5.4 Mobile-First Responsive Design
-
-The project should follow a **mobile-first** approach.
-
-Base styles should target small screens first, with media queries used to progressively enhance the layout for larger screens.
-
-Example:
-
-```css
-/* Base / Mobile */
-
-.container {
-    width: 100%;
-}
-
-/* Tablet */
-
-@media (min-width: 768px) {
-    ...
-}
-
-/* Desktop */
-
-@media (min-width: 1024px) {
-    ...
-}
-```
-
-Recommended breakpoints are starting points only and should ultimately be determined by the content rather than specific device models.
-
----
-
-# 5.5 Layout System
-
-Use **Flexbox** and **CSS Grid** for layout.
-
-### Flexbox
-
-Use for:
-
-- Navigation
-- Button groups
-- Horizontal card layouts
-- Form rows
-- Small component alignment
-
-### CSS Grid
-
-Use for:
-
-- Pricing cards
-- Feature sections
-- Calculator layouts
-- Desktop page structures
-- Multi-column content
-
-Avoid positioning major page elements using excessive `position: absolute`.
-
----
-
-# 5.6 CSS Custom Properties
-
-Use CSS variables for reusable design values.
-
-Example:
-
-```css
-:root {
-    --color-primary: /* PLACEHOLDER */;
-    --color-secondary: /* PLACEHOLDER */;
-    --color-background: /* PLACEHOLDER */;
-    --color-text: /* PLACEHOLDER */;
-    --color-muted: /* PLACEHOLDER */;
-
-    --font-heading: /* PLACEHOLDER */;
-    --font-body: /* PLACEHOLDER */;
-
-    --space-xs: /* PLACEHOLDER */;
-    --space-sm: /* PLACEHOLDER */;
-    --space-md: /* PLACEHOLDER */;
-    --space-lg: /* PLACEHOLDER */;
-    --space-xl: /* PLACEHOLDER */;
-
-    --radius-sm: /* PLACEHOLDER */;
-    --radius-md: /* PLACEHOLDER */;
-}
-```
-
-The actual visual design system can be defined during the design phase.
-
----
-
-# 5.7 Color Palette
-
-The final color palette has not yet been established.
-
-Use placeholders during development:
-
-```text
-Primary:        [PRIMARY COLOR]
-Secondary:      [SECONDARY COLOR]
-Background:     [BACKGROUND COLOR]
-Surface:        [SURFACE COLOR]
-Text:           [TEXT COLOR]
-Muted Text:     [MUTED COLOR]
-Success:        [SUCCESS COLOR]
-Error:          [ERROR COLOR]
-```
-
-The palette should provide sufficient contrast and should communicate reliability, cleanliness, and professionalism appropriate for a document-printing service.
-
----
-
-# 5.8 Typography
-
-Typography is currently a placeholder.
-
-Define:
-
-```text
-Heading Font: [FONT]
-Body Font:    [FONT]
-Fallback:     system-ui, sans-serif
-```
-
-Recommended hierarchy:
-
-```text
-H1 → Page / Hero title
-H2 → Major section
-H3 → Component title
-Body → Main content
-Small → Supporting information
-```
-
-Typography should remain readable on mobile devices and should not rely on excessive font-size variation.
-
----
-
-# 5.9 Spacing and Containers
-
-A consistent spacing system should be used instead of arbitrary margins.
-
-Suggested scale:
-
-```text
-XS → 4px
-SM → 8px
-MD → 16px
-LG → 24px
-XL → 40px
-XXL → 64px
-```
-
-These values are placeholders and can be adjusted during visual design.
-
-A reusable `.container` class should control the maximum content width.
-
-Conceptually:
-
-```css
-.container {
-    width: min(100% - 2rem, 1200px);
-    margin-inline: auto;
-}
-```
-
----
-
-# 5.10 Recommended Project Structure
-
-The initial static project can use the following structure:
-
-```text
-print-service/
-│
-├── index.html
-├── pages/
-│   ├── how-it-works.html
-│   ├── pricing.html
-│   ├── order.html
-│   └── contact.html
-│
-├── css/
-│   ├── style.css
-│   └── responsive.css
-│
-├── js/
-│   ├── main.js
-│   ├── calculator.js
-│   ├── navigation.js
-│   └── form.js
-│
-├── assets/
-│   ├── images/
-│   └── icons/
-│
-└── README.md
-```
-
-For the initial prototype, the project may be simplified into fewer files if that makes development easier.
-
----
-
-# Development Priority
-
-The recommended implementation order is:
-
-```text
-1. HTML structure
-       ↓
-2. Content and page hierarchy
-       ↓
-3. Basic CSS layout
-       ↓
-4. Responsive design
-       ↓
-5. Calculator UI
-       ↓
-6. JavaScript price calculation
-       ↓
-7. Simulated upload
-       ↓
-8. Form validation
-       ↓
-9. Simulated order confirmation
-       ↓
-10. Navigation and secondary interactions
-       ↓
-11. Accessibility refinement
-       ↓
-12. Visual polish
-```
-
-The first version should prioritize **clear information architecture and working interactions** over sophisticated visual effects.
-
----
-
-# Future Backend Considerations
-
-Although the current implementation is completely static, the architecture should avoid making future backend integration unnecessarily difficult.
-
-Potential future functionality could include:
-
-- Real file uploads
-- User accounts
-- Database-backed orders
-- Real-time order status
-- Payment processing
-- Automated price calculation
-- Email confirmations
-- Order history
-- Delivery tracking
-- Administrator dashboard
-- Server-side file validation
-
-These features are **out of scope for the current version**.
-
-The current project should therefore be treated as a **front-end prototype and functional proof of concept** for the future online document-printing platform.
+## 20. Overall Art Direction
+
+The final website should resemble a combination of:  
+**Premium editorial website + modern print studio + digital ordering platform.**
+
+Key creative concept:
+> **OnlinePrint takes something digital and gives it physical form.**
+
+* **Warm paper background (`#FDFBF7`):** Represents the physical medium.
+* **White cards (`#FFFFFF`):** Represent paper.
+* **Photographs:** Represent finished products.
+* **Coral accent (`#E05A47`):** Represents action and brand energy.
+* **Dark typography (`#1A1A1A`):** Provides structure and reliability.
+* **Generous whitespace:** Gives the interface a premium editorial quality.
